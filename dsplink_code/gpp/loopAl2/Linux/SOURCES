@@ -1,0 +1,18 @@
+#   ============================================================================
+#   @file   SOURCES
+#
+#   @path   $(DSPLINK)/gpp/src/samples/loop/Linux/
+#
+#   @desc   This file contains list of source files to be compiled.
+#
+#   @ver    1.61.03
+#   ============================================================================
+#   Copyright (c) Texas Instruments Incorporated 2002-2008
+#
+#   Use of this software is controlled by the terms and conditions found in the
+#   license agreement under which this software has been supplied or provided.
+#   ============================================================================
+
+
+SOURCES :=  loop_os.cpp
+         

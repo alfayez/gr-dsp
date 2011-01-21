@@ -1,0 +1,153 @@
+/** ============================================================================
+ *  @file   main.c
+ *
+ *  @path   $(DSPLINK)/gpp/src/samples/loop/Linux/
+ *
+ *  @desc   Linux specific implementation of loop sample application's driver.
+ *
+ *  @ver    1.61.03
+ *  ============================================================================
+ *  Copyright (c) Texas Instruments Incorporated 2002-2008
+ *
+ *  Use of this software is controlled by the terms and conditions found in the
+ *  license agreement under which this software has been supplied or provided.
+ *  ============================================================================
+ */
+
+
+/*  ----------------------------------- OS Specific Headers           */
+#include <stdio.h>
+#include <stdlib.h>
+
+/*  ----------------------------------- DSP/BIOS Link                 */
+#include <dsplink.h>
+
+/*  ----------------------------------- Application Header            */
+#include <loop_os.h>
+#include <loop.h>
+
+
+
+#if defined (__cplusplus)
+extern "C" {
+#endif /* defined (__cplusplus) */
+
+
+#if defined (DA8XXGEM)
+
+/** ============================================================================
+ *  @name   dspAddr
+ *
+ *  @desc   Address of c_int00 in the DSP executable.
+ *  ============================================================================
+ */
+extern Uint32 LOOP_dspAddr ;
+
+/** ============================================================================
+ *  @name   shmAddr
+ *
+ *  @desc   Address of symbol DSPLINK_shmBaseAddres in the DSP executable.
+ *  ============================================================================
+ */
+extern Uint32 LOOP_shmAddr ;
+
+/** ============================================================================
+ *  @name   argsAddr
+ *
+ *  @desc   Address of .args section in the DSP executable.
+ *  ============================================================================
+ */
+extern Uint32 LOOP_argsAddr ;
+
+/** ============================================================================
+ *  @name   LINKCFG_config
+ *
+ *  @desc   Extern declaration to the default DSP/BIOS LINK configuration
+ *          structure.
+ *  ============================================================================
+ */
+extern  LINKCFG_Object LINKCFG_config ;
+#endif
+
+
+/** ============================================================================
+ *  @func   main
+ *
+ *  @desc   Entry point for the application
+ *
+ *  @modif  None
+ *  ============================================================================
+ */
+int main (int argc, char ** argv)
+{
+    Char8 * dspExecutable    = NULL ;
+    Char8 * strBufferSize    = NULL ;
+    Char8 * strNumIterations = NULL ;
+    Char8 * strProcessorId   = NULL ;
+    Uint8 processorId        = 0    ;
+#if defined (DA8XXGEM)
+    Char8 * strDspAddr       = NULL ;
+    Char8 * strShmAddr       = NULL ;
+    Char8 * strArgsAddr      = NULL ;
+#endif
+
+    if ((argc != 5) && (argc != 4)) {
+        printf ("Usage : %s <absolute path of DSP executable> "
+           "<Buffer Size> <number of transfers> < DSP Processor Id >\n"
+           "For infinite transfers, use value of 0 for <number of transfers>\n"
+           "For DSP Processor Id,"
+           "\n\t use value of 0  if sample needs to be run on DSP 0 "
+           "\n\t use value of 1  if sample needs to be run on DSP 1"
+           "\n\t For single DSP configuration this is optional argument\n",
+           argv [0]) ;
+    }
+    else {
+        dspExecutable    = argv [1] ;
+        strBufferSize    = argv [2] ;
+        strNumIterations = argv [3] ;
+        if(argc == 4 ) {
+            strProcessorId   = "0" ;
+            processorId      = 0 ;
+        }
+        else {
+            strProcessorId   = argv [4] ;
+            processorId      = atoi (argv [4]) ;
+        }
+
+        if (processorId < MAX_PROCESSORS) {
+#if defined (DA8XXGEM)
+            if (   LINKCFG_config.dspConfigs [processorId]->dspObject->doDspCtrl
+                == DSP_BootMode_NoBoot) {
+                /* strDspAddr(c_int00 address)  and .args address are not required
+                 * for noboot mode.DSPLINK_shmBaseAddress address is not required to
+                 * pass for  message sample. Because  DSPLINK_shmBaseAddress is
+                 * defined in linker command file of  dsp side message sample.
+                 */
+                strShmAddr       = "0x0" ;
+                strDspAddr       = "0x0" ;
+                strArgsAddr      = "0x0" ;
+                LOOP_shmAddr     = LOOP_Atoll (strShmAddr) ;
+                LOOP_dspAddr     = LOOP_Atoll (strDspAddr) ;
+                LOOP_argsAddr    = LOOP_Atoll (strArgsAddr) ;
+                /* For No bootmode Hard coding the values
+                 * since DSP side app is using the same values
+                 */
+                strBufferSize     = "1024";
+                strNumIterations = "10000";
+
+            }
+#endif
+            LOOP_Main (dspExecutable,
+                       strBufferSize,
+                       strNumIterations,
+                       strProcessorId) ;
+        }
+
+    }
+    return 0 ;
+}
+
+
+#if defined (__cplusplus)
+}
+#endif /* defined (__cplusplus) */

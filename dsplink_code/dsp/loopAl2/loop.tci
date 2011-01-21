@@ -1,0 +1,36 @@
+/** ============================================================================
+ *  @file   loop.tci
+ *
+ *  @path   $(DSPLINK)/dsp/src/samples/loop/
+ *
+ *  @desc   Platform-independent configuration include file.
+ *          This file defines common configuration for the LOOP sample.
+ *
+ *  @ver    1.61.03
+ *  ============================================================================
+ *  Copyright (c) Texas Instruments Incorporated 2002-2008
+ *
+ *  Use of this software is controlled by the terms and conditions found in the
+ *  license agreement under which this software has been supplied or provided.
+ *  ============================================================================
+ */
+
+
+/*  ============================================================================
+ *  Global Settings
+ *  ============================================================================
+ */
+prog.module("MEM").ARGSSIZE = 50;
+
+/*  ============================================================================
+ *  LOG : Trace Object
+ *  ============================================================================
+ */
+var trace = prog.module("LOG").create("trace");
+trace.bufLen = 32;
+
+/*  ============================================================================
+ *  Enable POOL Manager
+ *  ============================================================================
+ */
+bios.POOL.ENABLEPOOL = true;
