@@ -11,7 +11,7 @@ PV = "0.1"
 
 SRC_URI = "file://gpp_lib/loopgppAl2.o \
 	file://gpp_lib/gnuradio_beagleboard_dsp.h"
-S = "/home/alfayez/oe/tmp_beagleboard/work/armv7a-angstrom-linux-gnueabi/gpp-lib-0.1-r0/gpp_lib"
+S = "${TMPDIR}/work/armv7a-angstrom-linux-gnueabi/gpp-lib-0.1-r0/gpp_lib"
 
 LIBLOOPGPPAL2_TARGET = ${STAGING_DIR_TARGET}/usr/lib
 
