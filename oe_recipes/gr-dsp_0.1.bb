@@ -11,15 +11,12 @@ PN = "gr-dsp"
 PV = "0.1"
 
 SRC_URI = "file://gr-dsp-${PV}.tar.gz"
-#   file://libloopgppAl2.so.1 
+# \
 #   file://gnuradio_beagleboard_dsp.h"
-	    
-	    
-#SRC_URI = "file://gr-dsp/gr-howto-write-a-block-3.2.2.tar.gz"
-#S = "${WORKDIR}/${PN}-${PV}-r0"
+#   file://libloopgppAl2.so.1 
 
 
-S = "/home/alfayez/oe/tmp_beagleboard/work/armv7a-angstrom-linux-gnueabi/gr-dsp-0.1-r0"
+S = "${TMPDIR}/work/armv7a-angstrom-linux-gnueabi/gr-dsp-0.1-r0"
 inherit autotools
 
 export BUILD_SYS
