@@ -11,12 +11,15 @@ PN = "gr-dsp"
 PV = "0.1"
 
 SRC_URI = "file://gr-dsp-${PV}.tar.gz"
-# \
-#   file://gnuradio_beagleboard_dsp.h"
 #   file://libloopgppAl2.so.1 
+#   file://gnuradio_beagleboard_dsp.h"
+	    
+	    
+#SRC_URI = "file://gr-dsp/gr-howto-write-a-block-3.2.2.tar.gz"
+#S = "${WORKDIR}/${PN}-${PV}-r0"
 
 
-S = "${TMPDIR}/work/armv7a-angstrom-linux-gnueabi/gr-dsp-0.1-r0"
+S = "/home/alfayez/oe/tmp_beagleboard/work/armv7a-angstrom-linux-gnueabi/gr-dsp-0.1-r0"
 inherit autotools
 
 export BUILD_SYS
@@ -48,5 +51,11 @@ FILES_${PN} += "\
    /usr/lib/python2.6/site-packages/gnuradio/_dsp.la	\
    /usr/lib/python2.6/site-packages/gnuradio/_dsp.so 	\
 "
-#   /usr/lib/python-2.6/lib-dynload/_howto.la	 \
-#   /usr/lib/python-2.6/lib-dynload/_howto.so	 \
+FILES_${PN}-dev += "\
+   /usr/include/gnuradio/dsp_* 	\
+   /usr/include/gnuradio/swig/dsp_ \
+"
+
+PROVIDES += "gr-dsp"
+#PACKAGES += "gr-dsp"
+
