@@ -1,13 +1,3 @@
+This branch contains only the GNU Radio gr-dsp hooks
 
-initBeagle.sh
-	insmod'ing ti drivers
-dsplink_code
-	contains GPP and DSP code for handling the interface and DSP program
-	also contains sample *.mk files which users need to modify after installing DSPLink
-oe_recipes
-	openembedded related files
-omap_sample_flowgraphs
-	flowgraphs which use a FIR CCF filter using the DSP
-pre-baked-packages-2_6_37
-	packages which can be installed directly for instant "satisfaction"
 
