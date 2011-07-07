@@ -4,7 +4,7 @@ DESCRIPTION = "DSP source/sink blocks for GNU Radio"
 SECTION = "apps"
 PRIORITY = "optional"
 LICENSE = "GPL"
-DEPENDS = " gnuradio python swig-native linux-libc-headers easyCom-gpp"
+DEPENDS = " gnuradio python swig-native linux-libc-headers easycom-gpp "
 RDEPENDS = "gnuradio"
 
 PN = "gr-dsp"
