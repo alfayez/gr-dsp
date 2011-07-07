@@ -4,7 +4,7 @@ DESCRIPTION = "DSP source/sink blocks for GNU Radio"
 SECTION = "apps"
 PRIORITY = "optional"
 LICENSE = "GPL"
-DEPENDS = "gnuradio python swig-native linux-libc-headers"
+DEPENDS = " gnuradio python swig-native linux-libc-headers easyCom-gpp"
 RDEPENDS = "gnuradio"
 
 PN = "gr-dsp"
@@ -17,9 +17,10 @@ SRC_URI = "file://gr-dsp-${PV}.tar.gz"
 	    
 #SRC_URI = "file://gr-dsp/gr-howto-write-a-block-3.2.2.tar.gz"
 #S = "${WORKDIR}/${PN}-${PV}-r0"
+#S = "${WORKDIR}/test-123"
+S = "${WORKDIR}"
 
-
-S = "/home/alfayez/oe/tmp_beagleboard/work/armv7a-angstrom-linux-gnueabi/gr-dsp-0.1-r0"
+#S = "/home/alfayez/oe/tmp_beagleboard/work/armv7a-angstrom-linux-gnueabi/gr-dsp-0.1-r0"
 inherit autotools
 
 export BUILD_SYS
@@ -30,14 +31,12 @@ EXTRA_OECONF += "  --with-pythondir=/usr/lib/python2.6/site-packages \
   GNURADIO_CORE_INCLUDEDIR=${STAGING_INCDIR}/gnuradio \
 "
 
+
 do_configure_append() {
-        find ${S} -name Makefile | xargs sed -i s:'-I/usr/include':'-I${STAGING_INCDIR}':g
-        find ${S} -name Makefile | xargs sed -i s:'GNURADIO_CORE_INCLUDEDIR = /usr/include/gnuradio':'GNURADIO_CORE_INCLUDEDIR = ${STAGING_INCDIR}/gnuradio':g
-        find ${S} -name Makefile | xargs sed -i s:'grincludedir = $(includedir)/gnuradio':'grincludedir = ${STAGING_INCDIR}/gnuradio':g
-        
-        #mkdir -p ${D}${libdir}
-        #cp ${S}/libloopgppAl2.so.1 ${D}${libdir}/
-        #chmod 0755 ${D}${libdir}/libloopgppAl2.so.1
+
+	find ${S} -name Makefile | xargs sed -i s:'-I/usr/include':'-I${STAGING_INCDIR}':g
+	find ${S} -name Makefile | xargs sed -i s:'GNURADIO_CORE_INCLUDEDIR = /usr/include/gnuradio':'GNURADIO_CORE_INCLUDEDIR = ${STAGING_INCDIR}/gnuradio':g
+	find ${S} -name Makefile | xargs sed -i s:'grincludedir = $(includedir)/gnuradio':'grincludedir = ${STAGING_INCDIR}/gnuradio':g
 }
 
 #do_compile_prepend () {
